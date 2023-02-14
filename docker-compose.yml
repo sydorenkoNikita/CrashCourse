@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgres:15.2-alpine
+    restart: on-failure
+    environment:
+      POSTGRES_USER: crashcourse
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PASSWORD: crashcourse
+      POSTGRES_DATABASE: crash_course
+    ports:
+      - "5432:5432"
+
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./src/:/CrashCourse/src
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
