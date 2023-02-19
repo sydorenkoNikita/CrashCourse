@@ -1,11 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import express from 'express';
+import AppModule from './modules/app.module.js';
 
-const app = express();
 const PORT = Number(process.env.PORT) || 8000;
 const HOST = process.env.HOST || 'localhost';
+const app = new AppModule();
 
-app.listen(PORT, HOST, () => {
-  console.log(`Server started on ${PORT} port...`);
-});
+app.listen(PORT, HOST);
